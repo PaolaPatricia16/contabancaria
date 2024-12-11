@@ -4,9 +4,22 @@ import java.util.Scanner;
 
 import conta.util.Cores; // importando a classe cores que foi criada
 
+import conta.model.Conta; 
+
 public class Menu {
 
 	public static void main(String[] args) {
+		
+		// Instanciamento / Convertendo uma Classe em Objeto utilizável
+		// o "new" serve para criar um objeto
+		// Teste da Classe Conta
+		Conta c1 = new Conta(1, 123, 1, "Adriana", 10000.0f);
+		c1.visualizar();
+		c1.sacar(12000.0f);
+		c1.visualizar();
+		c1.depositar(5000.0f);
+		c1.visualizar();
+		
 		
 		Scanner leia = new Scanner(System.in);
 		
