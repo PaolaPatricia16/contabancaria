@@ -1,6 +1,6 @@
 package conta.model;
 
-public class Conta {
+public abstract class Conta {
 
 	// Atributos / Variáveis
 	private int numero;
@@ -86,7 +86,7 @@ public class Conta {
 		return true;
 	}
 	
-	// do tipo VOID porque não precisa retornar nenhum dado, apenas exibir
+	// do tipo VOID porque não precisa retornar nenhum dado a Classe que esta "chamando" ele.
 	public void depositar(float valor) {
 		this.setSaldo(this.getSaldo() + valor);
 	}
@@ -107,7 +107,7 @@ public class Conta {
         System.out.println("*******************************************");
         System.out.println("Número da Conta: " +this.numero);
         System.out.println("Agência: " +this.agencia);
-        System.out.println("Tipo da Conta: " +this.tipo);
+        System.out.println("Tipo da Conta: " +tipo);
         System.out.println("Titular: " +this.titular);
         System.out.println("Saldo: R$" +this.saldo);
 	}

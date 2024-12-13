@@ -2,32 +2,50 @@ package conta;
 
 import java.util.Scanner;
 
-import conta.util.Cores; // importando a classe cores que foi criada
+import conta.util.Cores; // importando a classe Cores que foi criada
 
-import conta.model.Conta; 
+import conta.model.Conta; // importando a classe Conta para criar o obj
+
+import conta.model.ContaCorrente; // importando a classe ContaCorrente para criar o obj
+
+import conta.model.ContaPoupanca; // importando a Classe ContaCorrente para instanciar
 
 public class Menu {
 
 	public static void main(String[] args) {
-		
-		// Instanciamento / Convertendo uma Classe em Objeto utilizável
-		// o "new" serve para criar um objeto
-		// Teste da Classe Conta
-		Conta c1 = new Conta(1, 123, 1, "Adriana", 10000.0f);
-		c1.visualizar();
-		c1.sacar(12000.0f);
-		c1.visualizar();
-		c1.depositar(5000.0f);
-		c1.visualizar();
 		
 		
 		Scanner leia = new Scanner(System.in);
 		
 		int opcao;
 		
+		
+		// Instanciamento / Convertendo uma Classe em Objeto utilizável
+		// o "new" serve para criar um objeto
+
+		// Instancia da Classe - ContaCorrente
+		ContaCorrente cc1 = new ContaCorrente(1, 123, 1, "Paola", 15000.0f, 1000.0f);
+		// Teste da Classe ContaCorrente
+		cc1.visualizar();
+		cc1.sacar(12000.0f);
+		cc1.visualizar();
+		cc1.depositar(5000.0f);
+		cc1.visualizar();
+		
+		
+		// Intancia da Classe - ContaPoupanca
+		ContaPoupanca cp1 = new ContaPoupanca(3, 12345, 2, "Victor", 100000.0f, 15);
+		cp1.visualizar();	
+		cp1.sacar(1000.0f);
+		cp1.visualizar();
+		cp1.depositar(5000.0f);
+		cp1.visualizar();
+		
+
+		
 		while(true) {
 			
-			System.out.println(Cores.TEXT_YELLOW + Cores.ANSI_BLACK_BACKGROUND
+			System.out.println(Cores.TEXT_BLACK_BOLD + Cores.ANSI_PURPLE_BACKGROUND
 					          +"**********************************************");
 			
 			System.out.println("**********************************************");
