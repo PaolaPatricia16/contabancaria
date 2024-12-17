@@ -22,9 +22,9 @@ public class Menu {
 		
 		Scanner leia = new Scanner(System.in);
 		
-		int opcao, numero, agencia, tipo, aniversario;
+		int opcao, numero, agencia, tipo, aniversario, numeroDestino;
 		String titular;
-		float saldo, limite;
+		float saldo, limite, valor;
 		
 		// Instanciamento / Convertendo uma Classe em Objeto utilizável
 		// o "new" serve para criar um objeto
@@ -90,7 +90,7 @@ public class Menu {
 			
 			switch(opcao) {
 			case 1:
-				System.out.println(Cores.TEXT_WHITE_BOLD+ "Criar Conta n\n"); // O "Cores." define a cor de texto da msg
+				System.out.println(Cores.TEXT_WHITE_BOLD+ "Criar Conta \n\n"); // O "Cores." define a cor de texto da msg
 				
 				System.out.println("Digite o Número da Agência: ");
 				agencia = leia.nextInt();
@@ -133,30 +133,111 @@ public class Menu {
 			case 3:
 				System.out.println(Cores.TEXT_WHITE_BOLD+ "Consultar dados da Conta\n\n");
 				
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+				
+				contas.procurarPorNumero(numero); // chama e executa o metodo da classe controller
+				
 				keyPress();
 				break;
 			case 4:
 				System.out.println(Cores.TEXT_WHITE_BOLD+ "Atualizar dados da Conta\n\n");
+				
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+				
+				var buscaConta = contas.buscarNaCollection(numero); // envia o dado "num" para executar no metodo
+				
+				if (buscaConta != null){
+					System.out.println("Digite o número da Agência: ");
+					agencia = leia.nextInt();
+					System.out.println("Digite o nome do Titular: ");
+					leia.skip("\\R?");
+					titular = leia.nextLine();
+					
+					System.out.println("Digite o saldo da Conta: R$");
+					saldo = leia.nextFloat();
+					
+					tipo = buscaConta.getTipo(); // trás o tipo da conta de acordo com a Classe Conta
+					
+					switch(tipo) {
+						case 1 -> {
+							System.out.println("Digite o Limite de Crédito: R$");
+							limite = leia.nextFloat();
+							
+							contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
+						
+						}
+						case 2 -> {
+							System.out.println("Digite o dia do Aniversário da Conta: ");
+							aniversario = leia.nextInt();
+							
+							contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+						}
+						default -> {
+							System.out.println("Tipo de conta inválida!");
+						}
+					}
+				}else {
+					System.out.println("A Conta não foi encontrada! ");
+				}
 				
 				keyPress();
 				break;
 			case 5:
 				System.out.println(Cores.TEXT_WHITE_BOLD+ "Apagar a Conta\n\n");
 				
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+				
+				contas.deletar(numero); //chama o metodo deletar da Classe Controller
+				
 				keyPress();
 				break;
 			case 6:
 				System.out.println(Cores.TEXT_WHITE_BOLD+ "Saque\n\n");
+				
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+				
+				do { //laço de repetição para garantir que seja inserido um valor positivo acima de 0
+					System.out.println("Digite o Valor do Saque: ");
+					valor = leia.nextFloat();
+				}while(valor <= 0);
+				
+				contas.sacar(numero, valor); //envia os 2 parametros para o Método Sacar que esta na Classe Controller
 				
 				keyPress();
 				break;
 			case 7:
 				System.out.println(Cores.TEXT_WHITE_BOLD+ "Depósito\n\n");
 				
+				System.out.println("Digite o número da conta: ");
+				numero = leia.nextInt();
+				
+				do {
+					System.out.println("Digite o valor do Depósito: ");
+					valor = leia.nextFloat();
+				}while(valor <= 0);
+				
+				contas.depositar(numero, valor);
+				
 				keyPress();
 				break;
 			case 8:
 				System.out.println(Cores.TEXT_WHITE_BOLD+ "Transferência entre Contas\n\n");
+				
+				System.out.println("Digite o número da Conta de Origem: ");
+				numero = leia.nextInt();
+				System.out.println("Digite o número da Conta de Destino: ");
+				numeroDestino = leia.nextInt();
+				
+				do {
+					System.out.println("Digite o valor a ser transferido: ");
+					valor = leia.nextFloat();
+				}while(valor <= 0);
+				
+				contas.transferir(numero, numeroDestino, valor);
 				
 				keyPress();
 				break;
